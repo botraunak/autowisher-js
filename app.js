@@ -1,3 +1,52 @@
+window.fbAsyncInit = function() {
+    FB.init({
+        appId: '414427155363670',
+        cookie: true,
+        xfbml: true,
+        version: 'v2.2'
+    });
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
+};
+
+function display_form() {
+    $("#login").hide();
+    $("#form").show();
+    $("#logout").hide();
+}
+
+function display_logout() {
+    $("#login").hide();
+    $("#form").hide();
+    $("#logout").show();
+}
+
+function display_login() {
+    $("#logout").hide();
+    $("#form").hide();
+    $("#login").show();
+}
+
+function statusChangeCallback(response) {
+    if (response.status === 'connected') {
+        // Logged into your app and Facebook.
+        display_form();
+    } else if (response.status === 'not_authorized') {
+        document.getElementById('status').innerHTML = 'Please log into this app.';
+        display_login();
+    } else {
+        document.getElementById('status').innerHTML = 'Please log into Facebook.';
+        display_login();
+    }
+}
+
+function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
+}
+
 $(document).ready(function() {
 
     $("#login").show();
@@ -8,7 +57,7 @@ $(document).ready(function() {
         FB.login(function(response) {
             checkLoginState();
         }, {
-            scope: 'user_posts,email,publish_actions'
+            scope: 'user_posts,read_stream,email,publish_actions'
         });
     });
 
@@ -17,68 +66,6 @@ $(document).ready(function() {
             checkLoginState();
         });
     });
-
-    function display_form() {
-        $("#login").hide();
-        $("#form").show();
-        $("#logout").hide();
-    }
-
-    function display_logout() {
-        $("#login").hide();
-        $("#form").hide();
-        $("#logout").show();
-    }
-
-    function display_login() {
-        $("#logout").hide();
-        $("#form").hide();
-        $("#login").show();
-    }
-
-
-    // FB LOGIC
-    // This is called with the results from from FB.getLoginStatus().
-    function statusChangeCallback(response) {
-        if (response.status === 'connected') {
-            // Logged into your app and Facebook.
-            display_form();
-        } else if (response.status === 'not_authorized') {
-            document.getElementById('status').innerHTML = 'Please log into this app.';
-            display_login();
-        } else {
-            document.getElementById('status').innerHTML = 'Please log into Facebook.';
-            display_login();
-        }
-    }
-
-    function checkLoginState() {
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
-    }
-
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId: '414427155363670',
-            cookie: true, 
-            xfbml: true,
-            version: 'v2.2'
-        });
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
-    };
-
-    // Load the SDK asynchronously
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
 
     // Function to handle birthday posts
     $("#bday_submit").submit(function() {
@@ -128,3 +115,13 @@ $(document).ready(function() {
         return false;
     });
 });
+
+// Load the SDK asynchronously
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
