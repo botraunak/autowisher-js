@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AutoWisher</title>
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="app.js"></script>
+<link rel="stylesheet" href="style.css">
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+<body>
+
+
+
+
+<div class="header">
+      <h1 class="text">AutoWisher</h1>
+      <h3 class="light text">Thank all your friends at once!</h3>
+      
+</div>
+
+<div class="container">
+      <div class="page" id="login">
+
+            <h3 class="light"> Autowisher let's you post a thankyou comment on all the birthday posts in no time. Please remember to enter the birthday in current year</h3>
+            <br><br>
+            <h4 class="light">Please Log in with facebook to continue</h4>
+
+            <br>
+            <button  class="facebook" id="fb_login">Login</button>
+      </div>
+
+      <div class="page" id="form">
+      <form id="bday_submit" class="form">
+            <p>Enter your date in the current year</p>
+             <input required type="date" name = "bdaystrt" placeholder= "Birthday Start eg input 10 April 2014"> </input> 
+             <select required name="tmzcrr">
+      <option value="">--Select Timezone--</option>
+      
+        <option value="+12.0">(GMT -12:00) Eniwetok, Kwajalein</option>
+      <option value="+11.0">(GMT -11:00) Midway Island, Samoa</option>
+      <option value="+10.0">(GMT -10:00) Hawaii</option>
+      <option value="+9.0">(GMT -9:00) Alaska</option>
+      <option value="+8.0">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+      <option value="+7.0">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+      <option value="+6.0">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+      <option value="+5.0">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+      <option value="+4.0">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+      <option value="+3.5">(GMT -3:30) Newfoundland</option>
+      <option value="+3.0">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+      <option value="+2.0">(GMT -2:00) Mid-Atlantic</option>
+      <option value="+1.0">(GMT -1:00 hour) Azores, Cape Verde Islands</option>
+      <option value="0.0">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+      <option value="-1.0">(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris</option>
+      <option value="-2.0">(GMT +2:00) Kaliningrad, South Africa</option>
+      <option value="-3.0">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+      <option value="-3.5">(GMT +3:30) Tehran</option>
+      <option value="-4.0">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+      <option value="-4.5">(GMT +4:30) Kabul</option>
+      <option value="-5.0">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+      <option value="-5.5">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+      <option value="-5.75">(GMT +5:45) Kathmandu</option>
+      <option value="-6.0">(GMT +6:00) Almaty, Dhaka, Colombo</option>
+      <option value="-7.0">(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+      <option value="-8.0">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+      <option value="-9.0">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+      <option value="-9.5">(GMT +9:30) Adelaide, Darwin</option>
+      <option value="-10.0">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+      <option value="-11.0">(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+      <option value="-12.0">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+</select>
+             <input type="submit" class="wish" value ="Wish Everyone">
+             </form>
+      </form>
+</div>
+
+<div class="page" id="logout">
+      
+
+      <h3 class="light"> Thankyou for using AutoWisher, All your posts were commented on.</h3>
+            <br><br>
+
+            <h4 class="light">If you want you can logout now. Find me on facebook <a href="http://fb.me/botraunak">Raunak Sett</a></h4>
+            <br>
+
+<button class="facebook" id="fb_logout">Logout</button>
+
+</div>
+
+</div>
+
+
+
+
+</body>
+</html>

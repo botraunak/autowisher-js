@@ -1,0 +1,91 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto';
+}
+
+body{
+	background: #EEEFF7;
+}
+
+
+.header{
+	width: 100vw;
+	
+	padding-top: 5vh;
+	height: 30vh;
+	padding-bottom: 5vh;
+	
+	font-size: 4vh;
+	color: white;
+	background: #3b5998;
+	background-image: url('http://www.droid-life.com/wp-content/uploads/2013/01/googlenownewyork.png');
+	background-size: cover;
+	background-position-y: 50%;
+	text-align: center;
+	margin-bottom: 5%;
+	text-shadow: 3px 5px 10px black;
+}
+.text{
+	position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.container{
+	width: 40%;
+	background: white;
+	box-shadow: rgba(0, 0, 0, 0.0470588) 0px 2px 3px 0px;
+	margin: 0 auto;
+}
+.light{
+	font-weight: 300;
+}
+.page
+{
+	text-align: center;
+	padding: 20px;
+	font-size: 1rem;
+}
+
+input,select {
+  display:block;
+  width:100%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border:0;
+  font-size:1rem;
+  padding:10px 1px;
+  background: #E9F1DF;
+  border-radius:3px;
+  box-shadow:0 1px 2px #aaa;
+}
+
+.wish{
+	background: #36B1BF;
+	color: white;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+.facebook{
+	cursor: pointer;
+	border: none;
+	width: 200px;
+	height: 50px;
+	font-size: 1rem;
+	padding-left: 1rem;
+	color: white;
+	background-image: url(http://icons.iconarchive.com/icons/danleech/simple/512/facebook-icon.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+    background-color: #3b5998;
+}
+
+
+@media screen and (max-width: 700px) {
+	.container{
+		width: 95%;
+
+	}
+	
+}
