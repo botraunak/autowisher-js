@@ -88,27 +88,26 @@ $(document).ready(function() {
 function commentOnPosts(link, callback) {
     FB.api(link, function(response) {
         res = response.data;
-        if(res == null)
+        if(res.length == 0)
             return;
-        while(1) {
-            for (item of res) {
-                var post_id = item.id;
-                var post_name = item.from.name.split(" ");
-                var post_name = post_name[0];
-                FB.api(
-                    "/" + post_id + "/comments",
-                    "POST", {
-                        "message": "Thanks " + post_name + "!",
-                    },
-                    function(response) {
-                        if (response && !response.error) {
-                            count += 1;
-                        }
+        for(item of res) {
+            var post_id = item.id;
+            var post_name = item.from.name.split(" ");
+            var post_name = post_name[0];
+            FB.api(
+                "/" + post_id + "/comments",
+                "POST", {
+                    "message": "Thanks " + post_name + "!",
+                },
+                function(response) {
+                    if (response && !response.error) {
+                        count += 1;
                     }
-                );
-            }
-            callback.call(null, response.paging.next, callback);
+                }
+            );
         }
+        if(response.paging.next)
+            callback.call(null, response.paging.next, callback);
     });
 }
 // Load the SDK asynchronously
