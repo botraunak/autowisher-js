@@ -79,46 +79,38 @@ $(document).ready(function() {
     $("#bday_submit").submit(function() {
         var count = 0;
         var end = false;
-
-        FB.api('/me/feed?since=' + birthday + "&until=" + encodeURIComponent(birthday + " + 1 day"), function(response) {
-            res = response.data;
-            while (!end) {
-                for (item of res) {
-                    var unix_time = Date.parse(item.created_time);
-                    console.log(unix_time);
-                    if (unix_time >= since_time) {
-                        var post_id = item.id;
-                        var post_name = item.from.name.split(" ");
-                        var post_name = post_name[0];
-                        FB.api(
-                            "/" + post_id + "/comments",
-                            "POST", {
-                                "message": "Thanks " + post_name + "!",
-                            },
-                            function(response) {
-                                if (response && !response.error) {
-                                    count += 1;
-                                }
-                            }
-                            );
-                    } else {
-                        end = true;
-                        break;
-                    }
-                }
-                if (!end) {
-                    $link = response.paging.next;
-                    $.getJSON("link", function(result) {
-                        res = result.data;
-                    });
-                }
-            }
-            display_logout();
-        });
+        commentOnPosts('/me/feed?since=' + birthday + "&until=" + encodeURIComponent(birthday + " + 1 day"), commentOnPosts);
         return false;
     });
+    display_logout();
 });
 
+function commentOnPosts(link, callback) {
+    FB.api(link, function(response) {
+        res = response.data;
+        if(res == null)
+            return;
+        while(1) {
+            for (item of res) {
+                var post_id = item.id;
+                var post_name = item.from.name.split(" ");
+                var post_name = post_name[0];
+                FB.api(
+                    "/" + post_id + "/comments",
+                    "POST", {
+                        "message": "Thanks " + post_name + "!",
+                    },
+                    function(response) {
+                        if (response && !response.error) {
+                            count += 1;
+                        }
+                    }
+                );
+            }
+            callback.call(null, response.paging.next, callback);
+        }
+    });
+}
 // Load the SDK asynchronously
 (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
