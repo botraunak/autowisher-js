@@ -10,6 +10,9 @@ window.fbAsyncInit = function() {
     });
 };
 
+var tmzcrr = null;
+var birthday = null;
+
 function display_form() {
     $("#login").hide();
     $("#form").show();
@@ -31,7 +34,13 @@ function display_login() {
 function statusChangeCallback(response) {
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
-        display_form();
+        FB.api("/me?fields=timezone,birthday", function(res) {
+            tmzcrr = -res.timezone * 3600;
+            birthday = res.birthday.split("/");
+            birthday[2] = new Date().getFullYear();
+            birthday = birthday.join("/");
+            display_form();
+        });
     } else if (response.status === 'not_authorized') {
         document.getElementById('status').innerHTML = 'Please log into this app.';
         display_login();
@@ -57,7 +66,7 @@ $(document).ready(function() {
         FB.login(function(response) {
             checkLoginState();
         }, {
-            scope: 'user_posts,read_stream,email,publish_actions'
+            scope: 'user_posts,read_stream,email,publish_actions,user_birthday'
         });
     });
 
@@ -69,18 +78,13 @@ $(document).ready(function() {
 
     // Function to handle birthday posts
     $("#bday_submit").submit(function() {
-        var tmzcrr = this.tmzcrr.value * 3600;
-        var since_time = this.bdaystrt.value;
-        myDate = since_time.split("-").reverse();
-        var newDate = myDate[1] + "/" + myDate[0] + "/" + myDate[2];
-        var since_time = new Date(newDate).getTime() + tmzcrr;
+        var since_time = new Date(birthday).getTime() + tmzcrr;
         var count = 0;
         var end = false;
-        var until = since_time + 86400;
+        var until_time = since_time + 86400;
 
-
-       FB.api('/me/feed?until='+until, function(response) {
-             res = response.data;
+        FB.api('/me/feed?until=' + until_time + '&since=' + since_time, function(response) {
+            res = response.data;
             while (!end) {
                 for (item of res) {
                     var unix_time = Date.parse(item.created_time);
@@ -99,7 +103,7 @@ $(document).ready(function() {
                                     count += 1;
                                 }
                             }
-                        );
+                            );
                     } else {
                         end = true;
                         break;
@@ -112,8 +116,8 @@ $(document).ready(function() {
                     });
                 }
             }
+            display_logout();
         });
-        display_logout();
         return false;
     });
 });
