@@ -76,9 +76,11 @@ $(document).ready(function() {
         var since_time = new Date(newDate).getTime() + tmzcrr;
         var count = 0;
         var end = false;
+        var until = since_time + 86400;
 
-        FB.api('/me/feed', function(response) {
-            res = response.data;
+
+       FB.api('/me/feed?until='+until, function(response) {
+             res = response.data;
             while (!end) {
                 for (item of res) {
                     var unix_time = Date.parse(item.created_time);
