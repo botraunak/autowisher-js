@@ -81,7 +81,7 @@ $(document).ready(function() {
         var since_time = new Date(birthday).getTime() + tmzcrr;
         var count = 0;
         var end = false;
-        var until_time = since_time + 86400;
+        var until_time = since_time + 86400000;
 
         FB.api('/me/feed?until=' + until_time + '&since=' + since_time, function(response) {
             res = response.data;
