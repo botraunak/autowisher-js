@@ -34,8 +34,7 @@ function display_login() {
 function statusChangeCallback(response) {
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
-        FB.api("/me?fields=timezone,birthday", function(res) {
-            tmzcrr = -res.timezone * 3600;
+        FB.api("/me?fields=birthday", function(res) {
             birthday = res.birthday.split("/");
             birthday[2] = new Date().getFullYear();
             birthday = birthday.join("/");
@@ -78,12 +77,10 @@ $(document).ready(function() {
 
     // Function to handle birthday posts
     $("#bday_submit").submit(function() {
-        var since_time = new Date(birthday).getTime() + tmzcrr;
         var count = 0;
         var end = false;
-        var until_time = since_time + 86400000;
 
-        FB.api('/me/feed?until=' + until_time + '&since=' + since_time, function(response) {
+        FB.api('/me/feed?since=' + birthday + "&until=" + encodeURIComponent(birthday + " + 1 day"), function(response) {
             res = response.data;
             while (!end) {
                 for (item of res) {
