@@ -12,6 +12,7 @@ window.fbAsyncInit = function() {
 
 var tmzcrr = null;
 var birthday = null;
+var count = 0;
 
 function display_form() {
     $("#login").hide();
@@ -69,10 +70,8 @@ $(document).ready(function() {
     });
     // Function to handle birthday posts
     $("#bday_submit").submit(function() {
-        var count = 0;
-        var end = false;
+        $("#bday_submit").html("<img src='loading.gif' height='80' width='80' />");
         commentOnPosts('/me/feed?since=' + birthday + "&until=" + encodeURIComponent(birthday + " + 1 day"), commentOnPosts);
-        display_logout();
         return false;
     });
 });
@@ -81,7 +80,7 @@ function commentOnPosts(link, callback) {
     FB.api(link, function(response) {
         res = response.data;
         if(res.length == 0)
-            return;
+            return doneCommenting();
         for(item of res) {
             var post_id = item.id;
             var post_name = item.from.name.split(" ");
@@ -95,10 +94,16 @@ function commentOnPosts(link, callback) {
                     console.log(e);
                 }
             );
+            count++;
         }
         if(response.paging.next)
             callback.call(null, response.paging.next, callback);
     });
+}
+function doneCommenting() {
+    $("#logout > h3.light").html("Thanks for using AutoWisher. We commented on " + count + " posts, saving you at least " + (count * 6).toString() + " seconds! Happy Birthday, btw!");
+    display_logout();
+    return false;
 }
 // Load the SDK asynchronously
 (function(d, s, id) {
