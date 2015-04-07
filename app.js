@@ -56,7 +56,6 @@ function checkLoginState() {
 }
 
 $(document).ready(function() {
-
     $("#login").show();
     $("#form").hide();
     $("#logout").hide();
@@ -68,21 +67,14 @@ $(document).ready(function() {
             scope: 'user_posts,read_stream,email,publish_actions,user_birthday'
         });
     });
-
-    $("#fb_logout").click(function() {
-        FB.logout(function(response) {
-            checkLoginState();
-        });
-    });
-
     // Function to handle birthday posts
     $("#bday_submit").submit(function() {
         var count = 0;
         var end = false;
         commentOnPosts('/me/feed?since=' + birthday + "&until=" + encodeURIComponent(birthday + " + 1 day"), commentOnPosts);
+        display_logout();
         return false;
     });
-    display_logout();
 });
 
 function commentOnPosts(link, callback) {
@@ -99,10 +91,8 @@ function commentOnPosts(link, callback) {
                 "POST", {
                     "message": "Thanks " + post_name + "!",
                 },
-                function(response) {
-                    if (response && !response.error) {
-                        count += 1;
-                    }
+                function(e) {
+                    console.log(e);
                 }
             );
         }
