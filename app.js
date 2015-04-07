@@ -64,7 +64,7 @@ $(document).ready(function() {
         FB.login(function(response) {
             checkLoginState();
         }, {
-            scope: 'user_posts,read_stream,email,publish_actions,user_birthday'
+            scope: 'read_stream,email,publish_actions,user_birthday'
         });
     });
     // Function to handle birthday posts
